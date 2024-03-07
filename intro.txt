@@ -1,0 +1,35 @@
+->etcd: a consistent and highly available key value store, as the backing store for all cluster data
+
+->AWS Credential Type:
+-access key - programmatic access
+-password - aws management console access
+
+->EKS cluster setup via eksctl:
+-eksctl - created by weaveworks
+-eksctl advantages: -VPC, -2 subnets in 2 AZs
+
+Create Cluster:
+-time eksctl create cluster -f eks.yml 
+
+Nodegroups and Spot Instances:
+-eksctl get cluster
+-eksctl get nodegroup --cluster cluster_name
+-Spot Instance is an unused EC2 instance which is available for less than the On-Demand price.
+
+Cluster Autoscaler - Overview::
+-responsible for dynamically scale the nodes within a nodegroup - in and out
+ runs as deployment
+ decides based on CPU & RAM availability/requests
+ multi-az vs single-az scaling
+   nodegroup with single az => for stateful workloads
+   nodegroup multi az => for stateless workloads
+ mixture on-demand and spot-instances possible
+
+kubectl get nodes
+kubectl scale --replicas=3 deployment/test-autoscaler
+kubectl get nodes -l instance-type=spot
+kubectl get po
+kubectl -n kube-system logs deployment.apps/cluster-autoscaler
+
+->ControlPlane logging to cloudwatch:
+-eksctl utils update-cluster-logging --config-file eks.yml --approve

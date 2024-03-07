@@ -1,0 +1,44 @@
+Helm package manager::
+-kubernetes package manager
+-chart, config, release
+
+-helm repo add stable https://charts.helm.sh/stable
+-helm repo list
+-helm repo update
+-helm search repo
+-helm install redis-test stable/redis
+-helm ls
+-helm uninstall redis-test
+
+Adding Admin User in eks:
+-kubectl -n kube-system get cm
+-aws sts get-caller-identity
+-export AWS_PROFILE="clusteradmin"
+
+Adding Read-Only User eks:
+-kubectl create namespace production
+
+The whole controlPlane is fronted by an NLB(Network load balancer - provides fixed IP to the controlPlane)
+
+EKS networking - vpc
+-recommended to have private subnets, public subnets, must have dns names
+
+inbound from worker -- min:443(TLS)
+outbound to worker -- min:10250(kubectl)
+inbound from master -- min:10250
+outbound to master -- min:443
+
+EKS pod networking:
+-amazon vpc CNI plugin: each pod receive 1 ip address(=eni) in vpc
+-pods have the same ip address inside the eks cluster and outside of it
+-subnet limitations:
+ CIDR/24 is 254 ip, not enough to run a lot of pods
+ CIDR/18 is a lot more ip(16,384 ip), better for running more pods
+-ec2 limitations:
+ ec2 instances can only have a limited amount of ENI/IP address
+ more in documentation
+
+Classless Inter-Domain Routing (CIDR):
+-is an IP address allocation method that improves data routing efficiency on the internet.
+
+Role-based access control (RBAC) - Amazon Redshift.

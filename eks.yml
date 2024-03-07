@@ -1,0 +1,15 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: j-eks-cluster
+  region: ap-south-1
+
+nodeGroups:
+  - name: j-1
+    instanceType: t2.small
+    desiredCapacity: 3
+    ssh: #use existing ec2 key
+      publicKeyName: j-ec2-keypair
+
+#the fact that eksctl is automatically creating a VPC and two subnets in two different availability zones for us.

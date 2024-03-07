@@ -1,0 +1,43 @@
+EKS load balancer:
+-classic load balancer  --  is by default 
+-application load balancer
+-network load balancer
+
+-classic and network are service of type 'load balancer'
+ application load balancer is for ingress controller
+
+Deploy and inspect a stateless app:
+-kubectl get pods -o wide
+-kubectl describe node node_detail
+-kubectl get pods -l app=app_name -l tier=frontend
+-kubectl describe service fronted
+
+Deploy and inspect a stateful app:
+-EBS Volumes
+ -EBS Volumes are tied to an availability zone(AZ)
+ -re-created pods can only be started in the AZ of the previous EBS Volume
+
+Stateless applications don't “store” data whereas Stateful applications require backing storage.
+
+Create a namespace:
+-kubectl get namespace
+-kubectl create namespace namespace_name
+
+kubectl proxy
+
+Creating physical volume:
+-kubectl get storageclasses   --all-namespaces
+-kubectl describe sc gp2
+-kubectl get secrets --namespace=namespace_name
+
+Deploy wordpress via deployment
+
+Deploy wordpress via statefulset - EBS
+-for each new PV is created for that pod
+-they can't communicate with each other in this
+
+Deploy wordpress via statefulset - EFS
+
+Fargate::
+-container runtime for ECS and EKS
+-serverless kubernetes -- means os,ec2,k8s client and docker runtime that all manage by aws, we have to focus on app,pod
